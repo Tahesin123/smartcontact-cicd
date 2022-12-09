@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+    <section>
+       <div class="container">
+           <div class="row">
+               <div class="col-md-8 offset-md-2">
+
+                   <div class="my-card mt-10">
+                       
+                       <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert">
+                            <p class = "text-center" th:text="${session.message.content}"></p>
+                            <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+                       </div>
+
+                       <h1 class="text-center">Register Here!</h1>
+
+                       <form novalidate th:action="@{/do_register}" method="post" th:object="${user}">
+                           <!--name fields-->
+                           <div class="form-group mt-10">
+                               <label for="name_field">Your Name</label>
+                               <input
+                                        name="name"
+                                        type="text"
+                                        class="form-control"
+                                        th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}"
+                                        id="name_field"
+                                        placeholder="Enter Here"
+                                        required
+                                        th:value="${user.name}"
+                               />
+                           </div>
+
+                           <div class="invalid-feedback" th:each="e : ${#fields.errors('name')}" th:text="${e}"></div>
+
+                           <!--email fields-->
+                           <div class="form-group mt-10">
+                               <label for="email_field">Your Email</label>
+                               <input
+                                       name="email"
+                                       type="email"
+                                       class="form-control"
+                                       id="email_field"
+                                       placeholder="Enter Here"
+                                       required
+                                       th:value="${user.email}"
+                               />
+                           </div>
+
+                           <!--password fields-->
+                           <div class="form-group mt-10">
+                               <label for="password_field">Your Password</label>
+                               <input
+                                       name="password"
+                                       type="password"
+                                       class="form-control"
+                                       id="password_field"
+                                       placeholder="Enter Here"
+                                       required
+                               />
+                           </div>
+
+                           <!--About Field-->
+                           <div class="form-group mt-10">
+                               <textarea name="about" placeholder="Enter about yourself" rows="10" class="form-control" th:text="${user.about}"></textarea>
+                           </div>
+
+                           <!--terms and conditions agreement-->
+                           <div class="form-group form-check">
+                               <input type="checkbox" name="agreement" class="form-check-input" id="agreement"/>
+                               <label for="agreement">Accept terms and conditions</label>
+                           </div>
+
+                           <div class="container text-center mt-10">
+                               <button class="btn text-white bg-primary margin:20px" type="submit">Submit</button>
+                               <button class="btn btn-warning" type="reset">Reset</button>
+                           </div>
+                       </form>
+                   </div>
+
+               </div>
+           </div>
+       </div>
+    </section>
+</body>
+</html>
