@@ -12,7 +12,7 @@ services:
       - smartapp
 
   appservice:
-    build: ./smart
+    build: .
     depends_on: 
      - dbservice
     environment:
