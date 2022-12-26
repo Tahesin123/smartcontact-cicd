@@ -4,13 +4,10 @@ services:
     image: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
-
-
-    volumes:
-      - ./data:/var/lib/mysql
-
     ports:
-      - 3307:3306
+      - 3306:3306
+    networks:
+      - smartapp
 
   appservice:
     build: .
@@ -22,3 +19,8 @@ services:
      - spring.datasource.password=root
     ports:
      - 9595:9595 
+    networks:
+      - smartapp
+     
+  networks:
+    smartapp:
