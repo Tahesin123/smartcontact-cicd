@@ -10,7 +10,7 @@ services:
       - ./data:/var/lib/mysql
 
     ports:
-      - 3307:3307
+      - 3307:3306
 
   appservice:
     build: ./smart
