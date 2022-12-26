@@ -4,23 +4,25 @@ services:
     image: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./data:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 3307:3307
     networks:
       - smartapp
 
   appservice:
-    build: .
+    build: ./smart
     depends_on: 
      - dbservice
     environment:
-     - spring.datasource.url=jdbc:mysql://dbservice:3306/smart_contact?createDatabaseIfNotExist=true
+     - spring.datasource.url=jdbc:mysql://dbservice:3306/smartcontact?createDatabaseIfNotExist=true
      - spring.datasource.username=root
      - spring.datasource.password=root
     ports:
      - 9595:9595 
     networks:
-      - smartapp
+     - smartapp
      
-  networks:
-    smartapp:
+networks:
+ smartapp:
