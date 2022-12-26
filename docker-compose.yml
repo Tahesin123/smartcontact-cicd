@@ -13,7 +13,7 @@ services:
       - 3307:3306
 
   appservice:
-    build: ./smart
+    build: .
     depends_on: 
      - dbservice
     environment:
